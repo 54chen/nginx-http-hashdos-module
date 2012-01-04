@@ -1,3 +1,18 @@
-nginx-http-hashdos-module
-http://54chen.com
-ver 0.1
+HowToUse
+        
+        hashdos on;
+	body_max_count 1000;
+	location ~ \.php$ {
+          fastcgi_pass 127.0.0.1:9000;
+          fastcgi_index index.php;
+          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+          include /opt/soft/nginx/conf/fastcgi_params;
+	  client_body_buffer_size  2m;
+	  client_max_body_size     2m;
+        }
+
+
+About
+	nginx-http-hashdos-module
+	http://54chen.com
+	ver 0.1
