@@ -2,6 +2,11 @@
 #include <ngx_core.h>
 #include <ngx_http.h>
 
+
+static void * ngx_http_hashdos_create_loc_conf(ngx_conf_t *cf);
+static char * ngx_http_hashdos_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child);
+static ngx_int_t ngx_http_hashdos_init(ngx_conf_t *cf);
+
 typedef struct {
     ngx_flag_t    enable;
     ngx_str_t     remote_ip;
@@ -75,8 +80,7 @@ ngx_http_hashdos_init(ngx_conf_t *cf)
 static ngx_int_t
 ngx_http_hashdos_handler(ngx_http_request_t *r)
 {
-    ngx_uint_t   i;
-    ngx_uint_t   hashlength,bhashlength;
+    ngx_uint_t   i; 
     ngx_http_accesskey_loc_conf_t  *alcf;
 
     alcf = ngx_http_get_module_loc_conf(r, ngx_http_hashdos_module);
