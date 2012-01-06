@@ -1,3 +1,10 @@
+
+/*
+ * Copyright (C) 2012 54chen<czhttp@gmail.com>
+ * http://54chen.com
+ */
+
+
 #include <ngx_config.h>
 #include <ngx_core.h>
 #include <ngx_http.h>
