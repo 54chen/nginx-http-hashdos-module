@@ -1,4 +1,6 @@
 HowToUse
+    http://www.54chen.com/web-ral/nginx-hashdos-module.html (Chinese verison)
+Install and Synopsis    
 	./configure --prefix=/opt/soft/nginx --with-pcre --user=www --group=www --with-http_stub_status_module --with-http_ssl_module --with-debug --add-module=/path_to/nginx-http-hashdos-module/ && make && make install
 
         
