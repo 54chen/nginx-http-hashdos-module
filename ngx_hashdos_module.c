@@ -116,9 +116,7 @@ ngx_http_hashdos_init(ngx_conf_t *cf)
 static ngx_int_t
 ngx_http_hashdos_handler(ngx_http_request_t *r)
 {
-#if (NGX_DEBUG)
-    ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,"[hashdos] start handler....");
-#endif
+    ngx_log_debug0(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,"[hashdos] start handler....");
     ngx_int_t                   rc;
     ngx_http_hashdos_loc_conf_t *alcf;
     ngx_http_post_read_ctx_t    *ctx;
@@ -148,9 +146,7 @@ ngx_http_hashdos_handler(ngx_http_request_t *r)
     rc = ngx_http_read_client_request_body(r, ngx_hashdos_request_body_handler);
     
     if (rc == NGX_ERROR || rc >= NGX_HTTP_SPECIAL_RESPONSE) {
-#if (NGX_DEBUG)
         ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,"[hashdos] get body request...., rc is : %O " , rc);
-#endif
         return rc;
     }
 
@@ -165,9 +161,7 @@ ngx_http_hashdos_handler(ngx_http_request_t *r)
 static void 
 ngx_hashdos_request_body_handler(ngx_http_request_t *r)
 {
-#if (NGX_DEBUG)
-    ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,"[hashdos] body trasfering is over....");
-#endif
+    ngx_log_debug0(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,"[hashdos] body trasfering is over....");
     ngx_http_hashdos_loc_conf_t *alcf;
     ngx_int_t                  count,  limit;
     u_char                      ch,     *p;
@@ -181,22 +175,16 @@ ngx_hashdos_request_body_handler(ngx_http_request_t *r)
     r->main->count--;
 
     if (r->request_body == NULL || r->request_body->bufs == NULL) {
-#if (NGX_DEBUG)
-        ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,"[hashdos] body bufs is null....");
-#endif
+        ngx_log_debug0(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,"[hashdos] body bufs is null....");
         return ;
     }
     
     alcf = ngx_http_get_module_loc_conf(r, ngx_http_hashdos_module);
     if (alcf->body_max_count <= 0) {
-#if (NGX_DEBUG)
-        ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,"[hashdos] configure body_max_count <= 0, set limit to 1000");
-#endif
+        ngx_log_debug0(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,"[hashdos] configure body_max_count <= 0, set limit to 1000");
         limit = 1000;
     } else {
-#if (NGX_DEBUG)
         ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,"[hashdos] configure body_max_count is %O", alcf->body_max_count);
-#endif
         limit = alcf->body_max_count;
     }    
 
@@ -238,9 +226,7 @@ ngx_hashdos_request_body_handler(ngx_http_request_t *r)
         }
     }
     ++count;
-#if (NGX_DEBUG)
-    ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,"[hashdos] parse request body params count is .... %O, limit is %O", count, limit);
-#endif
+    ngx_log_debug2(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,"[hashdos] parse request body params count is .... %O, limit is %O", count, limit);
     if(count >= limit){
         (void) ngx_http_discard_request_body(r);
         ngx_http_finalize_request(r, NGX_HTTP_REQUEST_ENTITY_TOO_LARGE);    
