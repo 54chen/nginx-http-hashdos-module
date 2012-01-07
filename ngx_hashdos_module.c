@@ -33,6 +33,12 @@ static ngx_command_t  ngx_http_hashdos_commands[] = {
       NGX_HTTP_LOC_CONF_OFFSET,
       offsetof(ngx_http_hashdos_loc_conf_t, enable),
       NULL },
+    { ngx_string("body_max_count"),
+      NGX_HTTP_MAIN_CONF|NGX_HTTP_SRV_CONF|NGX_HTTP_LOC_CONF|NGX_CONF_TAKE1,
+      ngx_conf_set_num_slot,
+      NGX_HTTP_LOC_CONF_OFFSET,  
+      offsetof(ngx_http_hashdos_loc_conf_t, body_max_count),
+      NULL },
       ngx_null_command
 };
 
@@ -76,7 +82,7 @@ ngx_http_hashdos_create_loc_conf(ngx_conf_t *cf)
         return NGX_CONF_ERROR;
     }
     conf->enable = NGX_CONF_UNSET;
-    conf->body_max_count = 1000;
+    conf->body_max_count = NGX_CONF_UNSET;
     return conf;
 }
 
